@@ -230,11 +230,14 @@ class PackageSearchIndex(SearchIndex):
             if key.endswith('_date'):
                 try:
                     date = parse(value, default=bogus_date)
-                    if date != bogus_date:
-                        value = date.isoformat() + 'Z'
-                    else:
-                        # The date field was empty, so dateutil filled it with
-                        # the default bogus date
+                    try:
+                        if date != bogus_date:
+                            value = date.isoformat() + 'Z'
+                        else:
+                            # The date field was empty, so dateutil filled it with
+                            # the default bogus date
+                            value = None
+                    except TypeError:
                         value = None
                 except ValueError:
                     continue
