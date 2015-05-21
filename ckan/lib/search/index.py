@@ -239,7 +239,7 @@ class PackageSearchIndex(SearchIndex):
                             value = None
                     except TypeError:
                         value = None
-                except ValueError:
+                except ValueError, AttributeError:
                     continue
             new_dict[key] = value
         pkg_dict = new_dict
